@@ -1,544 +1,444 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Asador</title>
-  <style type="text/css">
-    div {
-  transition: transform 0.3s ease-in-out;
+    <meta charset="UTF-8">
+    <title>El Asador - Restaurante & Bar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+    font-size: 18px;
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: black; /* Cambia el fondo a negro */
+    color: white;
 }
 
-div:hover {
-  transform: translateY(-10px); /* Mueve el div 10px hacia arriba */
+
+        .header {
+        text-align: center;
+        padding: 3rem 0;
+        background-color: black;
+        background-image: url('car.jpg'); /* Agrega aquí la ruta de tu imagen */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+    }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: rgb(156, 163, 175);
+            font-style: italic;
+            margin: 0;
+        }
+
+        nav {
+            background-color: black;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: space-around;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .tab-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            border: none;
+            background: none;
+            color: rgb(156, 163, 175);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            color: rgb(252, 211, 77);
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            color: rgb(252, 211, 77);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background-color: rgb(252, 211, 77);
+        }
+
+        .tab-button span {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        main {
+            padding: 1.5rem;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .menu-section {
+            display: none;
+        }
+
+        .menu-section.active {
+            display: block;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgb(252, 211, 77);
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: black;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: rgb(55, 65, 81);
+        }
+
+        .menu-item-name {
+            color: rgb(243, 244, 246);
+        }
+
+        .menu-item-description {
+            font-size: 0.875rem;
+            color: rgb(156, 163, 175);
+        }
+
+        .menu-item-price {
+            color: rgb(252, 211, 77);
+            font-weight: 600;
+        }
+
+        .drink-section {
+            margin-bottom: 2rem;
+        }
+
+        .drink-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: rgb(209, 213, 219);
+            margin-bottom: 1rem;
+        }
+
+        .drink-grid:hover {
+            background-color: rgb(55, 65, 81);
+        }
+
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 0.75rem;
+            background-color: black;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .drink-grid.header {
+            background: none;
+            color: rgb(156, 163, 175);
+            font-size: 0.875rem;
+        }
+
+        .drink-grid .price {
+            text-align: right;
+            color: rgb(252, 211, 77);
+        }
+
+
+
+
+/* Ajuste para pantallas móviles */
+@media (max-width: 480px) {
+    .header {
+        padding: 2rem 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem; /* Aumentar tamaño del título */
+    }
+
+    .header p {
+        font-size: 1.125rem; /* Ajustar descripción */
+    }
+
+    nav {
+        padding: 1rem;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .tab-button span {
+        font-size: 1.2rem; /* Aumentar tamaño de los botones */
+    }
+
+    .menu-section {
+        padding: 1rem 0.5rem;
+    }
+
+    .menu-item {
+        padding: 1.5rem 0.75rem; /* Aumentar espacio entre los elementos */
+    }
+
+    .menu-item-name {
+        font-size: 1.2rem; /* Aumentar tamaño de texto de los items */
+    }
+
+    .menu-item-description {
+        font-size: 1rem;
+    }
+
+    .menu-item-price {
+        font-size: 1.2rem; /* Aumentar visibilidad del precio */
+        font-weight: bold;
+    }
+
+    .menu-grid, .drink-grid {
+        grid-template-columns: 1fr; /* Hacer una columna en móviles */
+    }
+
+    main {
+        padding: 1.5rem;
+        max-width: 100%; /* Usar el 100% del ancho de la pantalla */
+    }
+}
+
+/* Ajuste para pantallas medianas (tablets) */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.5rem;
+    }
+
+    .header p {
+        font-size: 1.125rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
+    }
+
+    .drink-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 
 
 
-  </style>
+        
+    </style>
 </head>
 <body>
+    <header class="header">
+        <h1>EL ASADOR</h1>
+        <p>Restaurante & Bar</p>
+    </header>
 
-<div style="background-color: #1a1a1a; color: #d4d4d4; font-family: 'Arial', sans-serif; padding: 40px; max-width: 800px; margin: 0 auto;">
-  <div style="text-align: center; border-bottom: 2px solid #c8a97e; padding-bottom: 30px; margin-bottom: 30px;">
-    <h1 style="color: #c8a97e; font-size: 48px; margin: 0; letter-spacing: 4px;">EL ASADOR</h1>
-    <p style="color: #888; font-style: italic; margin-top: 10px;">Restaurante & Bar</p>
-  </div>
-
-  <!-- SNACKS -->
-  <div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-    <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">SNACKS & ANTOJITOS</h2>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: flex; justify-content: space-between;">
-        <span>Nachos Preparados</span>
-        <span style="color: #c8a97e;">$75</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Aros de Cebolla</span>
-        <span style="color: #c8a97e;">$69</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Papas a la Francesa (300gr)</span>
-        <span style="color: #c8a97e;">$49</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Papas Gajo (300gr)</span>
-        <span style="color: #c8a97e;">$49</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <div>
-          <span>Alitas (8 pzas)</span>
-          <div style="font-size: 0.9em; color: #888;">Ranch • BBQ • Habanero</div>
+    <nav>
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showSection('snacks', this)">
+                <i data-lucide="utensils"></i>
+                <span>Comida</span>
+            </button>
+            <button class="tab-button" onclick="showSection('drinks', this)">
+                <i data-lucide="wine"></i>
+                <span>Licores</span>
+            </button>
+            <button class="tab-button" onclick="showSection('cocktails', this)">
+                <i data-lucide="menu"></i>
+                <span>Cócteles</span>
+            </button>
+            <button class="tab-button" onclick="showSection('sodas', this)">
+                <i data-lucide="coffee"></i>
+                <span>Refrescos</span>
+            </button>
         </div>
-        <span style="color: #c8a97e;">$75</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Nuggets de Pollo</span>
-        <span style="color: #c8a97e;">$69</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Hot Dogs</span>
-        <span style="color: #c8a97e;">$45</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <div>
-          <span>Maruchan Preparadas</span>
-          <div style="font-size: 0.9em; color: #888;">Varios sabores</div>
+    </nav>
+
+    <main>
+        <div id="snacks" class="menu-section active">
+            <h2 class="category-title">SNACKS & ANTOJITOS</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Nachos Preparados</div>
+                    </div>
+                    <div class="menu-item-price">$75</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Aros de Cebolla</div>
+                    </div>
+                    <div class="menu-item-price">$69</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Papas a la Francesa (300gr)</div>
+                    </div>
+                    <div class="menu-item-price">$49</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Alitas (8 pzas)</div>
+                        <div class="menu-item-description">Ranch • BBQ • Habanero</div>
+                    </div>
+                    <div class="menu-item-price">$75</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Nuggets de Pollo</div>
+                    </div>
+                    <div class="menu-item-price">$69</div>
+                </div>
+            </div>
         </div>
-        <span style="color: #c8a97e;">$30</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- HAMBURGUESAS -->
-  <div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-    <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">HAMBURGUESAS</h2>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: flex; justify-content: space-between;">
-        <span>Res Clásica</span>
-        <span style="color: #c8a97e;">$75</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Res Hawaiana</span>
-        <span style="color: #c8a97e;">$85</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Res Doble</span>
-        <span style="color: #c8a97e;">$90</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Res Doble Hawaiana</span>
-        <span style="color: #c8a97e;">$99</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Arrachera</span>
-        <span style="color: #c8a97e;">$80</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Pollo</span>
-        <span style="color: #c8a97e;">$75</span>
-      </div>
-    </div>
-  </div>
-
- <!-- BEBIDAS -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">LICORES PREMIUM</h2>
-
-  <!-- TEQUILAS -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">TEQUILAS</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>José Cuervo Tradicional</span>  
-        <span style="color: #c8a97e; text-align: right;">$630</span>
-        <span style="color: #c8a97e; text-align: right;">$50</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>José Cuervo Especial</span>
-        <span style="color: #c8a97e; text-align: right;">$420</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Cabrito</span>
-        <span style="color: #c8a97e; text-align: right;">$330</span>
-        <span style="color: #c8a97e; text-align: right;">$30</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Azul</span>
-        <span style="color: #c8a97e; text-align: right;">$530</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Maestro Dobel</span>
-        <span style="color: #c8a97e; text-align: right;">$1280</span>
-        <span style="color: #c8a97e; text-align: right;">$90</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>José Cuervo Especial Plata</span>
-        <span style="color: #c8a97e; text-align: right;">$450</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- WHISKY -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">WHISKY</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Passport</span>
-        <span style="color: #c8a97e; text-align: right;">$395</span>
-        <span style="color: #c8a97e; text-align: right;">$30</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Etiqueta Roja JW</span>
-        <span style="color: #c8a97e; text-align: right;">$620</span>
-        <span style="color: #c8a97e; text-align: right;">$50</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Black and White</span>
-        <span style="color: #c8a97e; text-align: right;">$470</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Jack Daniel's</span>
-        <span style="color: #c8a97e; text-align: right;">$990</span>
-        <span style="color: #c8a97e; text-align: right;">$90</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- RON -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">RON</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Bacardi Blanco</span>
-        <span style="color: #c8a97e; text-align: right;">$430</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Bacardi Frambuesa</span>
-        <span style="color: #c8a97e; text-align: right;">$460</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Bacardi Limón</span>
-        <span style="color: #c8a97e; text-align: right;">$460</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Bacardi Mango c/Chile</span>
-        <span style="color: #c8a97e; text-align: right;">$460</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- VODKA -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">VODKA</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Smirnoff</span>
-        <span style="color: #c8a97e; text-align: right;">$430</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Absolut</span>
-        <span style="color: #c8a97e; text-align: right;">$495</span>
-        <span style="color: #c8a97e; text-align: right;">$45</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Wyboroba</span>
-        <span style="color: #c8a97e; text-align: right;">$380</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- BRANDY -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">BRANDY</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Torres 5</span>
-        <span style="color: #c8a97e; text-align: right;">$450</span>
-        <span style="color: #c8a97e; text-align: right;">$40</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Torres 10</span>
-        <span style="color: #c8a97e; text-align: right;">$550</span>
-        <span style="color: #c8a97e; text-align: right;">$50</span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Azteca</span>
-        <span style="color: #c8a97e; text-align: right;">$550</span>
-        <span style="color: #c8a97e; text-align: right;">$50</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- VINO -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">VINO</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Botella / Copa</span> <!-- Nueva fila para el encabezado -->
-        <span style="color: #c8a97e; text-align: right;"></span>
-        <span style="color: #c8a97e; text-align: right;"></span>
-      </div>
-      <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 20px;">
-        <span>Lambrusco</span>
-        <span style="color: #c8a97e; text-align: right;">$300</span>
-        <span style="color: #c8a97e; text-align: right;">$30</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-    <!-- CERVEZAS -->
-  <div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-    <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">CERVEZAS</h2>
-    
-    <!-- 1L -->
-    <div style="margin-bottom: 20px;">
-      <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">CORONA / VICTORIA 1L</h3>
-      <div style="display: grid; gap: 10px;">
-        <div style="display: flex; justify-content: space-between;">
-          <span>Michelada</span>
-          <span style="color: #c8a97e;">$75</span>
+        <div id="drinks" class="menu-section">
+            <h2 class="category-title">LICORES PREMIUM</h2>
+            <div class="drink-section">
+                <h3>TEQUILAS</h3>
+                <div class="drink-grid header">
+                    
+                    <div class="price">Botella</div>
+                    <div class="price">Copa</div>
+                </div>
+                <div class="drink-grid">
+                    <div>José Cuervo Tradicional</div>
+                    <div class="price">$630</div>
+                    <div class="price">$50</div>
+                </div>
+                <div class="drink-grid">
+                    <div>José Cuervo Especial</div>
+                    <div class="price">$420</div>
+                    <div class="price">$40</div>
+                </div>
+                <div class="drink-grid">
+                    <div>Cabrito</div>
+                    <div class="price">$330</div>
+                    <div class="price">$30</div>
+                </div>
+            </div>
+            
+            <div class="drink-section">
+                <h3>WHISKY</h3>
+                <div class="drink-grid header">
+                    
+                    <div class="price">Botella</div>
+                    <div class="price">Copa</div>
+                </div>
+                <div class="drink-grid">
+                    <div>Passport</div>
+                    <div class="price">$395</div>
+                    <div class="price">$30</div>
+                </div>
+                <div class="drink-grid">
+                    <div>Etiqueta Roja JW</div>
+                    <div class="price">$620</div>
+                    <div class="price">$50</div>
+                </div>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between;">
-          <span>Chelada</span>
-          <span style="color: #c8a97e;">$70</span>
+
+        <div id="cocktails" class="menu-section">
+            <h2 class="category-title">COCTELERÍA</h2>
+            <div class="menu-grid">
+                <div class="drink-grid">
+                    <div>Mojito</div>
+                    <div class="price">$40</div>
+                    <div class="price">$75</div>
+                </div>
+                <div class="drink-grid">
+                    <div>Margarita</div>
+                    <div class="price">$40</div>
+                    <div class="price">$75</div>
+                </div>
+                <div class="drink-grid">
+                    <div>Piña Colada</div>
+                    <div class="price">$50</div>
+                    <div class="price">$90</div>
+                </div>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between;">
-          <span>Natural</span>
-          <span style="color: #c8a97e;">$70</span>
+
+        <div id="sodas" class="menu-section">
+            <h2 class="category-title">REFRESCOS</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-name">Coca-Cola</div>
+                    <div class="menu-item-price">$25</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Sprite</div>
+                    <div class="menu-item-price">$25</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Sidral</div>
+                    <div class="menu-item-price">$25</div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </main>
 
-    <!-- 600ml -->
-    <div style="margin-bottom: 20px;">
-      <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">CORONA / VICTORIA 600ml</h3>
-      <div style="display: grid; gap: 10px;">
-        <div style="display: flex; justify-content: space-between;">
-          <span>Michelada</span>
-          <span style="color: #c8a97e;">$50</span>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-          <span>Chelada</span>
-          <span style="color: #c8a97e;">$45</span>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-          <span>Natural</span>
-          <span style="color: #c8a97e;">$45</span>
-        </div>
-      </div>
-    </div>
-  </div>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-<!-- COCTELERÍA -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">COCTELERÍA</h2>
-  
-  <!-- Títulos para los precios -->
-  <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-    <span style="flex-grow: 1;"></span> <!-- Espacio para alinear los títulos con los nombres -->
-    <span style="color: #c8a97e; text-align: center; width: 50px;">Medio</span>
-    <span style="color: #c8a97e; text-align: center; width: 50px;">Litro</span>
-  </div>
+        // Función para mostrar la sección seleccionada
+        function showSection(sectionId, buttonElement) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.menu-section').forEach(section => {
+                section.classList.remove('active');
+            });
 
-  <div style="display: grid; gap: 10px;">
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Mojito</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Margarita</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Piña Colada</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$50</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$90</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Paloma</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Azulitos</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Cantaritos</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Sangria Preparada</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Bull</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$50</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$90</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Diablito</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$40</span>
-      <span style="color: #c8a97e; text-align: center; width: 50px;">$75</span>
-    </div>
-    
-  </div>
-</div>
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
 
-
-<!-- CERVEZAS -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">CERVEZAS</h2>
-  
-  <!-- 1L -->
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;">CORONA / VICTORIA 1L</h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: flex; justify-content: space-between;">
-        <span>Michelada</span>
-        <span style="color: #c8a97e;">$75</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Chelada</span>
-        <span style="color: #c8a97e;">$70</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Natural</span>
-        <span style="color: #c8a97e;">$70</span>
-      </div>
-    </div>
-  </div>
-</div> <!-- FIN del bloque de cervezas -->
-
-<!-- CERVEZA CUBETA -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">CUBETA DE CERVEZAS</h2>
-
-
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;"></h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: flex; justify-content: space-between;">
-        <span>Corona 6 piezas</span>
-        <span style="color: #c8a97e;">$110</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Corona 12 piezas</span>
-        <span style="color: #c8a97e;">$199</span>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-<!-- TRITONES -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">TRITON 5 LITROS</h2>
-
-
-  <div style="margin-bottom: 20px;">
-    <h3 style="color: #888; font-size: 18px; margin-bottom: 15px;"></h3>
-    <div style="display: grid; gap: 10px;">
-      <div style="display: flex; justify-content: space-between;">
-        <span>Corona 5 litros</span>
-        <span style="color: #c8a97e;">$320</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Victoria 5 litros</span>
-        <span style="color: #c8a97e;">$320</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span>Azulitos 5 litros</span>
-        <span style="color: #c8a97e;">$295</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- REFRESCOS (Este es el bloque independiente para refrescos) -->
-<div style="background-color: #232323; padding: 25px; margin: 20px 0; border-left: 4px solid #c8a97e;">
-  <h2 style="color: #c8a97e; font-size: 24px; margin-top: 0;">REFRESCOS</h2>
-  
-  <!-- Título para los precios y mensaje de presentación -->
-  <p style="color: #c8a97e; margin-bottom: 10px;">Todos los refrescos en presentación de vidrio</p>
-
-  <div style="display: grid; gap: 10px;">
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Coca-Cola</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Sprite</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Sidral</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Fanta</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Delaware Punch</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Jugo Del Valle</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Citrus</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Durazno</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-    <div style="display: flex;">
-      <span style="flex-grow: 1;">Mango</span>
-      <span style="color: #c8a97e; text-align: right;">$25</span>
-    </div>
-    
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-    
-
-
+            // Actualizar botones
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            buttonElement.classList.add('active');
+        }
+    </script>
 </body>
 </html>
