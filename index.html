@@ -163,6 +163,17 @@
         }
 
         .drink-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        align-items: center;
+        padding: 0.75rem;
+        background-color: black;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+        gap: 1rem;
+    }
+
+        .drink-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             padding: 0.75rem;
@@ -181,6 +192,36 @@
             text-align: right;
             color: rgb(252, 211, 77);
         }
+
+/* Ajuste para móviles */
+@media (max-width: 480px) {
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    .menu-item-name, .menu-item-price {
+        font-size: 1.1rem;
+    }
+
+    .drink-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .drink-grid .price {
+        text-align: right;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .menu-grid, .drink-grid {
+        gap: 1rem;
+    }
+}
 
 
 
@@ -233,8 +274,34 @@
         font-weight: bold;
     }
 
-    .menu-grid, .drink-grid {
+    .menu-grid {
         grid-template-columns: 1fr; /* Hacer una columna en móviles */
+    }
+
+    /* Ajustes para la cuadrícula de bebidas premium */
+    .drink-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Columnas ajustadas para móviles */
+        align-items: center;
+        padding: 0.75rem;
+        background-color: black;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+        gap: 1rem; /* Agrega espacio entre columnas */
+    }
+
+    .drink-grid .drink-name {
+        color: rgb(243, 244, 246);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .drink-grid .price {
+        text-align: right;
+        color: rgb(252, 211, 77);
+        font-weight: bold;
+        font-size: 1.1rem;
+        min-width: 80px; /* Ancho mínimo para alinear precios */
     }
 
     main {
@@ -257,11 +324,37 @@
         grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
     }
 
+    /* Ajustes para la cuadrícula de bebidas premium en tablets */
     .drink-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
     }
 }
 
+/* Ajustes para la cuadrícula de bebidas premium en pantallas grandes */
+.drink-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Columnas para el nombre, precio de botella y precio de copa */
+    align-items: center;
+    padding: 0.75rem;
+    background-color: black;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem; /* Agrega espacio entre columnas */
+}
+
+.drink-grid .drink-name {
+    color: rgb(243, 244, 246);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.drink-grid .price {
+    text-align: right;
+    color: rgb(252, 211, 77);
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 80px; /* Ancho mínimo para alinear precios */
+}
 
 
 
@@ -393,7 +486,7 @@
             <div class="menu-item-price">$30</div>
         </div>
     </div>
-    <div class="menu-note">(LOS SNACKS INCLUYEN PORCION DE PAPAS A LA FRANCESA)</div>
+    
 </div>
 
 
@@ -402,9 +495,9 @@
     
     <div class="drink-section">
         <h3>TEQUILAS</h3>
+        <h5>Botella/Copa</h5>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+            
         </div>
         <div class="drink-grid">
             <div>José Cuervo Tradicional</div>
@@ -441,8 +534,7 @@
     <div class="drink-section">
         <h3>WHISKY</h3>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+            
         </div>
         <div class="drink-grid">
             <div>Passport</div>
@@ -469,8 +561,7 @@
     <div class="drink-section">
         <h3>RON</h3>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+            
         </div>
         <div class="drink-grid">
             <div>Bacardi Blanco</div>
@@ -497,8 +588,7 @@
     <div class="drink-section">
         <h3>VODKA</h3>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+            
         </div>
         <div class="drink-grid">
             <div>Smirnoff</div>
@@ -520,8 +610,7 @@
     <div class="drink-section">
         <h3>BRANDY</h3>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+           
         </div>
         <div class="drink-grid">
             <div>Torres V</div>
@@ -543,8 +632,7 @@
     <div class="drink-section">
         <h3>VINO</h3>
         <div class="drink-grid header">
-            <div class="price">Botella</div>
-            <div class="price">Copa</div>
+            
         </div>
         <div class="drink-grid">
             <div>Lambrusco</div>
@@ -557,67 +645,68 @@
 
         <div id="cocktails" class="menu-section">
     <h2 class="category-title">COCTELERÍA</h2>
+    <div>Medio/Litro</div><br><br>
     <div class="menu-grid">
         <div class="drink-grid">
             <div>Mojito</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Margarita</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Piña Colada</div>
             <div class="price">$50</div>
             <div class="price">$90</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Paloma</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Azulitos</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Cantaritos</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Sangría Preparada</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Bull</div>
             <div class="price">$50</div>
             <div class="price">$90</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Diablito</div>
             <div class="price">$40</div>
             <div class="price">$75</div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Tritón 5L</div>
             <div class="price">$320</div>
             <div class="price"></div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Corona 5L</div>
             <div class="price">$320</div>
             <div class="price"></div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Victoria 5L</div>
             <div class="price">$320</div>
             <div class="price"></div>
-        </div>
+        </div><br>
         <div class="drink-grid">
             <div>Azulitos 5L</div>
             <div class="price">$295</div>
